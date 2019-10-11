@@ -14,8 +14,11 @@ const Form = ({ title }) => {
     addressValue: '',
     petValues: [],
     fruitValues: [],
-    colorValue: 'pink',
+    colorValue: null,
   })
+
+  const onSubmitHandler = e => e.preventDefault()
+  const onClickHandler = e => console.log(selectValues)
 
   const onChangeRadioValue = e => {
     const value = e.currentTarget.value
@@ -96,7 +99,7 @@ const Form = ({ title }) => {
     title: 'select abcd',
     name: 'abcdValue',
     optArr: ['a', 'b', 'c', 'd'],
-    value: selectValues.selectedValue,
+    value: selectValues.abcdValue,
     id: 'select01',
     onChange: onChangeSelect,
   }
@@ -186,7 +189,7 @@ const Form = ({ title }) => {
   }
 
   return (
-    <form>
+    <form onSubmit={onSubmitHandler}>
       <legend>{title}</legend>
       <Select contents={selectrContents} />
       <InputTxt contents={inputNameContents} />
@@ -195,6 +198,9 @@ const Form = ({ title }) => {
       <Checkbox contents={checkboxPetContents} />
       <Checkbox contents={checkboxFruitContents} />
       <Radio contents={radioColorContents} />
+      <button type="button" className="btn_result" onClick={onClickHandler}>
+        Result
+      </button>
     </form>
   )
 }

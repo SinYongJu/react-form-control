@@ -18,7 +18,13 @@ const Radio = ({
                 name={name}
                 value={item.value}
                 onChange={onChange}
-                defaultChecked={defaultVal && defaultVal === item.value}
+                defaultChecked={
+                  defaultVal
+                    ? defaultVal === item.value
+                    : index === 0
+                    ? true
+                    : false
+                }
               />
               <label htmlFor={id + '_' + item.value}>{item.value}</label>
             </div>
