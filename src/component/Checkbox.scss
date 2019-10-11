@@ -1,0 +1,18 @@
+.Checkbox{
+    overflow: hidden;
+    position: relative;
+    padding:5px 10px 10px;
+    border: 1px solid #777;
+    .check_comm{
+        float:left;
+        min-width:100px
+    }
+    strong{
+        display:block
+      }
+    label{
+        display:inline-block;
+        margin-left:5px;
+        vertical-align:top
+    }    
+}
