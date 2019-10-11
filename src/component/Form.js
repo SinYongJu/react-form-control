@@ -63,7 +63,8 @@ const Form = ({ title }) => {
   }
 
   const inputNameContents = {
-    title: 'input name',
+    title: 'name',
+    placeHolder: 'input name',
     name: 'nameValue',
     value: selectValues.nameValue,
     id: 'inputNameValue01',
@@ -71,7 +72,8 @@ const Form = ({ title }) => {
   }
 
   const inputEmailContents = {
-    title: 'input email',
+    title: 'email',
+    placeHolder: 'input email',
     name: 'emailValue',
     value: selectValues.emailValue,
     id: 'inputEmailValue01',
@@ -79,7 +81,8 @@ const Form = ({ title }) => {
   }
 
   const inputAddressContents = {
-    title: 'input address',
+    title: 'address',
+    placeHolder: 'input address',
     name: 'addressValue',
     value: selectValues.addressValue,
     id: 'inputAddressValue01',
