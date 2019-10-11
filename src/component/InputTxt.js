@@ -2,23 +2,33 @@ import React from 'react'
 import './InputTxt.scss'
 import PropsType from 'prop-types'
 
-const InputTxt = () => {
+const InputTxt = ({
+  contents: { id, title, name, onChange, value, placeHolder },
+}) => {
   return (
-    <div>
-      <label htmlFor=""></label>
-      <input type="text" id="" />
+    <div className="InputTxt">
+      <label htmlFor={id}>{title}</label>
+      <input
+        type="text"
+        id={id}
+        name={name}
+        onChange={onChange}
+        value={value}
+        placeholder={placeHolder}
+      />
     </div>
   )
 }
 
 export default InputTxt
+
 InputTxt.defaultProps = {
   contents: {
     id: 'testId',
     title: 'InputTxt test',
     name: 'test',
-    optArr: [1, 2, 3, 4, 5],
-    value: 1,
+    value: 'input your value',
+    placeHolder: 'input your text',
   },
 }
 InputTxt.PropsType = {
@@ -26,7 +36,6 @@ InputTxt.PropsType = {
     id: PropsType.string,
     name: PropsType.string,
     title: PropsType.string,
-    optArr: PropsType.array,
     value: PropsType.number,
     onChange: PropsType.function,
   }),

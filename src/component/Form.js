@@ -1,13 +1,17 @@
 import React from 'react'
 import propsTypes from 'prop-types'
+import './Form.scss'
 import Select from './Select'
-const Form = () => {
+import InputTxt from './InputTxt'
+
+const Form = ({ title }) => {
   const [selectValues, setSelectValues] = React.useState({
     nameValue: '',
     selectedValue: 'a',
   })
   const onChangeNameValue = e => {
-    const [value, name] = e.target
+    const value = e.target.value
+    const name = e.target.name
     setSelectValues(c => {
       return {
         ...c,
@@ -17,9 +21,10 @@ const Form = () => {
   }
 
   const onChangeSelect = e => {
-    console.log(e)
-    const [value, name] = e.target
+    const value = e.target.value
+    const name = e.target.name
     setSelectValues(c => {
+      console.log(c, name)
       return {
         ...c,
         [name]: value,
@@ -35,10 +40,19 @@ const Form = () => {
     onChange: onChangeSelect,
   }
 
+  const inputNameContents = {
+    title: 'input nameValue',
+    name: 'nameValue',
+    value: selectValues.nameValue,
+    id: 'inputNameValue01',
+    onChange: onChangeNameValue,
+  }
+
   return (
     <form>
-      <legend>input form</legend>
+      <legend>{title}</legend>
       <Select contents={selectrContents} />
+      <InputTxt contents={inputNameContents} />
     </form>
   )
 }
@@ -46,7 +60,7 @@ const Form = () => {
 export default Form
 
 Form.defaultProps = {
-  title: 'Select form',
+  title: 'Input form controller',
 }
 
 Form.propsTypes = {

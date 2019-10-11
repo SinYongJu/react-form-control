@@ -1,10 +1,11 @@
 import React from 'react'
 
 const LandingTemplate = ({ components }) => {
-  const { App, Form } = components
+  const { title, App, Form } = components
   return (
     <div>
       {App}
+      {title}
       {Form}
     </div>
   )
