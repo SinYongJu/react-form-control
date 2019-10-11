@@ -3,6 +3,7 @@ import propsTypes from 'prop-types'
 import './Form.scss'
 import Select from './Select'
 import InputTxt from './InputTxt'
+import Checkbox from './Checkbox'
 
 const Form = ({ title }) => {
   const [selectValues, setSelectValues] = React.useState({
@@ -10,7 +11,28 @@ const Form = ({ title }) => {
     selectedValue: 'a',
     emailValue: '',
     addressValue: '',
+    petValues: [],
+    fruitValues: [],
   })
+
+  const onChangeCheckboxValue = e => {
+    const value = e.currentTarget.value
+    const name = e.currentTarget.name
+    const checked = e.currentTarget.checked
+    setSelectValues(c => {
+      if (checked) {
+        return {
+          ...c,
+          [name]: [...c[name], value],
+        }
+      } else {
+        return {
+          ...c,
+          [name]: [...c[name]].filter(item => item !== value),
+        }
+      }
+    })
+  }
 
   const onChangeAddressValue = e => {
     const value = e.target.value
@@ -89,6 +111,41 @@ const Form = ({ title }) => {
     onChange: onChangeAddressValue,
   }
 
+  const checkboxPetContents = {
+    title: 'check pet',
+    onChange: onChangeCheckboxValue,
+    id: 'pet',
+    name: 'petValues',
+    values: [
+      {
+        value: 'dog',
+      },
+      {
+        value: 'cat',
+      },
+      {
+        value: 'horse',
+      },
+    ],
+  }
+  const checkboxFruitContents = {
+    title: 'check fruit',
+    onChange: onChangeCheckboxValue,
+    id: 'fruit',
+    name: 'fruitValues',
+    values: [
+      {
+        value: 'apple',
+      },
+      {
+        value: 'orage',
+      },
+      {
+        value: 'horse',
+      },
+    ],
+  }
+
   return (
     <form>
       <legend>{title}</legend>
@@ -96,6 +153,8 @@ const Form = ({ title }) => {
       <InputTxt contents={inputNameContents} />
       <InputTxt contents={inputEmailContents} />
       <InputTxt contents={inputAddressContents} />
+      <Checkbox contents={checkboxPetContents} />
+      <Checkbox contents={checkboxFruitContents} />
     </form>
   )
 }
