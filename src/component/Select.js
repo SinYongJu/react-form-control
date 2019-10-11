@@ -31,7 +31,7 @@ Select.PropsType = {
     name: PropsType.string,
     title: PropsType.string,
     optArr: PropsType.array,
-    value: PropsType.number,
+    value: PropsType.any,
     onChange: PropsType.function,
   }),
 }
