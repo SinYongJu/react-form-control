@@ -6,19 +6,22 @@ import InputTxt from './InputTxt'
 import Checkbox from './Checkbox'
 import Radio from './Radio'
 
+const defaultFormat = {
+  nameValue: '',
+  abcdValue: 'a',
+  emailValue: '',
+  addressValue: '',
+  petValues: [],
+  fruitValues: [],
+  colorValue: null,
+}
+
 const Form = ({ title }) => {
-  const [selectValues, setSelectValues] = React.useState({
-    nameValue: '',
-    abcdValue: 'a',
-    emailValue: '',
-    addressValue: '',
-    petValues: [],
-    fruitValues: [],
-    colorValue: null,
-  })
+  const [selectValues, setSelectValues] = React.useState(defaultFormat)
 
   const onSubmitHandler = e => e.preventDefault()
-  const onClickHandler = e => console.log(selectValues)
+  const onClickResultHandler = e => console.log(selectValues)
+  const onClickResetHandler = e => setSelectValues(defaultFormat)
 
   const onChangeRadioValue = e => {
     const value = e.currentTarget.value
@@ -191,15 +194,28 @@ const Form = ({ title }) => {
   return (
     <form onSubmit={onSubmitHandler}>
       <legend>{title}</legend>
+      <strong>group1</strong>
       <Select contents={selectrContents} />
       <InputTxt contents={inputNameContents} />
       <InputTxt contents={inputEmailContents} />
       <InputTxt contents={inputAddressContents} />
+      <strong>group2</strong>
       <Checkbox contents={checkboxPetContents} />
       <Checkbox contents={checkboxFruitContents} />
       <Radio contents={radioColorContents} />
-      <button type="button" className="btn_result" onClick={onClickHandler}>
+      <button
+        type="button"
+        className="btn_form btn_result"
+        onClick={onClickResultHandler}
+      >
         Result
+      </button>
+      <button
+        type="button"
+        className="btn_form btn_reset"
+        onClick={onClickResetHandler}
+      >
+        Reset
       </button>
     </form>
   )
