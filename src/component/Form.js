@@ -4,16 +4,33 @@ import './Form.scss'
 import Select from './Select'
 import InputTxt from './InputTxt'
 import Checkbox from './Checkbox'
+import Radio from './Radio'
 
 const Form = ({ title }) => {
   const [selectValues, setSelectValues] = React.useState({
     nameValue: '',
-    selectedValue: 'a',
+    abcdValue: 'a',
     emailValue: '',
     addressValue: '',
     petValues: [],
     fruitValues: [],
+    colorValue: 'pink',
   })
+
+  const onChangeRadioValue = e => {
+    const value = e.currentTarget.value
+    const name = e.currentTarget.name
+    const checked = e.currentTarget.checked
+    setSelectValues(c => {
+      if (checked) {
+        return {
+          ...c,
+          [name]: value,
+        }
+      }
+      return
+    })
+  }
 
   const onChangeCheckboxValue = e => {
     const value = e.currentTarget.value
@@ -76,8 +93,8 @@ const Form = ({ title }) => {
     })
   }
   const selectrContents = {
-    title: 'select value',
-    name: 'selectedValue',
+    title: 'select abcd',
+    name: 'abcdValue',
     optArr: ['a', 'b', 'c', 'd'],
     value: selectValues.selectedValue,
     id: 'select01',
@@ -146,6 +163,28 @@ const Form = ({ title }) => {
     ],
   }
 
+  const radioColorContents = {
+    isMultiple: false,
+    title: 'Pick fruit',
+    name: 'colorValue',
+    onChange: onChangeRadioValue,
+    defaultVal: selectValues['colorValue'],
+    values: [
+      {
+        value: 'red',
+      },
+      {
+        value: 'blue',
+      },
+      {
+        value: 'yellow',
+      },
+      {
+        value: 'pink',
+      },
+    ],
+  }
+
   return (
     <form>
       <legend>{title}</legend>
@@ -155,6 +194,7 @@ const Form = ({ title }) => {
       <InputTxt contents={inputAddressContents} />
       <Checkbox contents={checkboxPetContents} />
       <Checkbox contents={checkboxFruitContents} />
+      <Radio contents={radioColorContents} />
     </form>
   )
 }
