@@ -5,6 +5,7 @@ import Select from './Select'
 import InputTxt from './InputTxt'
 import Checkbox from './Checkbox'
 import Radio from './Radio'
+import CustomSelect from './CustomSelect'
 
 const defaultFormat = {
   nameValue: '',
@@ -14,6 +15,7 @@ const defaultFormat = {
   petValues: [],
   fruitValues: [],
   colorValue: null,
+  customAbcdValue: 'd',
 }
 
 const Form = ({ title }) => {
@@ -191,9 +193,28 @@ const Form = ({ title }) => {
     ],
   }
 
+  const onChangeCustomSelect = ({ value, name }) => {
+    console.log(value)
+    setSelectValues(c => ({
+      ...c,
+      [name]: value,
+    }))
+  }
+
+  const customSelectrContents = {
+    title: 'select Custom abcd',
+    name: 'customAbcdValue',
+    optArr: ['a', 'b', 'c', 'd'],
+    value: selectValues.customAbcdValue,
+    id: 'customSelect01',
+    onChange: onChangeCustomSelect,
+  }
+
   return (
     <form onSubmit={onSubmitHandler}>
       <legend>{title}</legend>
+      <strong>custom</strong>
+      <CustomSelect contents={customSelectrContents} />
       <strong>group1</strong>
       <Select contents={selectrContents} />
       <InputTxt contents={inputNameContents} />

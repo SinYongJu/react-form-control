@@ -1,0 +1,56 @@
+.CustomSelect{
+  position: relative;
+  border: 1px solid #777;
+  box-sizing: border-box;
+  &.on ul{
+    display: block;
+  }
+  ul{ 
+    position:absolute;
+    display: none;
+    top:100%;
+    left:0;
+    width:100%;
+    margin: -1px;
+    z-index:10;
+    border: 1px solid #777;
+    
+  }
+  li{
+    width:100%;
+    box-sizing: border-box;
+    background-color: #fff;
+    padding: 10px 15px;
+    cursor: pointer;
+    &+li{
+        border-top: 1px solid #777;
+    }
+    &:focus, &:hover{
+        background-color:#eee
+    }
+  }
+  button{
+    padding:15px 10px;
+    line-height: 24px;
+    font-size: 22px;
+    strong{
+        float:left
+    }
+  }
+  em{
+    overflow: hidden;
+    position:absolute;
+    top:50%;
+    right:20px;
+    margin-top:-12px;  
+    text-align: right;
+    line-height: 24px;
+    font-size: 22px;
+  }
+  &:after{
+      display: block;
+      clear:both;
+      height:0;
+      content:'';
+  }
+}
