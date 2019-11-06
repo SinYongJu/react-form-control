@@ -2,57 +2,95 @@ import React from 'react'
 import PropsType from 'prop-types'
 import './CustomSelect.scss'
 
+const ULLI = "ul li"
+
+/**
+ * 
+ * 해당 로직을 일괄적으로 적용 하고 싶으다 
+ * 
+ */
+const getFoucusTargetEl =(() => {
+  const FOCUS_EL_SELECTOR = 'a,button,input,select'
+  let count = 0;
+  let nextEl =null;
+  const type = {
+    NEXT : 'nextElementSibling',
+    PREV : 'previousElementSibling'
+  }
+  return (el,direction) => {
+    nextEl = el[type[direction]]
+    console.log(count)  
+    if(nextEl&&nextEl.querySelector(FOCUS_EL_SELECTOR)){
+      count = 0
+      return nextEl.querySelector(FOCUS_EL_SELECTOR)
+    }else{
+      if(count < 3){
+        count++
+        return getFoucusTargetEl(nextEl,direction)
+      }else{
+        return null
+      }
+    }
+  }
+})()
+
 const CustomSelect = ({
   contents: { id, value, name, title, optArr, onChange },
 }) => {
   const [toggle, isToggle] = React.useState(false)
   const selectRef = React.useRef(null)
   const toggleHandler = e => {
-    console.log(e.type, e.currentTarget)
     e.preventDefault()
     isToggle(c => !c)
   }
-  React.useEffect(() => {
-    Array.from(document.querySelectorAll('ul li')).map((item, index, arr) => {
-      item.addEventListener('keypress', e => {
-        if (e.keyCode === 13) {
-          onChange(e.target.dataset)
-          item.blur()
-          toggleHandler(e)
-        }
-      })
-      item.addEventListener('click', e => {
-        onChange(e.target.dataset)
-        item.blur()
-        toggleHandler(e)
-      })
-    })
-  }, [onChange])
 
+  const updateData = (e) => {
+    onChange(e.target.dataset)
+    e.target.blur()
+    toggleHandler(e)
+  }
+
+  const enterKeyPressUpdateData = (e) => {
+    if (e.keyCode === 13) {
+      updateData(e)
+    }
+  }
   const keyDownHandler = e => {
     // console.dir(e.target)
     if (e.keyCode === 40) {
       //down
       if (e.target.nodeName === 'BUTTON') {
         !toggle && toggleHandler(e)
-        return selectRef.current.querySelector('ul li').focus()
+        return selectRef.current.querySelector(ULLI).focus()
       }
       if (e.target.nextElementSibling) {
         e.target.nextElementSibling.focus()
       } else {
         e.target.blur()
         toggleHandler(e)
-        selectRef.current.querySelector('button').focus()
+        let nextFocusEl = getFoucusTargetEl(selectRef.current,'NEXT')
+        if(nextFocusEl){
+          nextFocusEl.focus()
+        }
+        
       }
     }
     if (e.keyCode === 38) {
       //up
+      if (e.target.nodeName === 'BUTTON') {
+        toggle && toggleHandler(e)
+        // return selectRef.current.querySelector(ULLI).focus()
+      }
+      
       if (e.target.previousElementSibling) {
         e.target.previousElementSibling.focus()
       } else {
         e.target.blur()
-        toggleHandler(e)
-        selectRef.current.querySelector('button').focus()
+        toggle && toggleHandler(e)
+        let nextFocusEl = getFoucusTargetEl(selectRef.current,'PREV')
+        if(nextFocusEl){
+          nextFocusEl.focus()
+        }
       }
     }
   }
@@ -75,9 +113,13 @@ const CustomSelect = ({
             return (
               <li
                 key={item + '__' + index}
-                tabIndex={0}
+                // href="#none"
+                tabIndex={index}  
                 data-value={item}
                 data-name={name}
+                data-id = {id}
+                onClick={updateData}
+                onKeyDown = {enterKeyPressUpdateData}
               >
                 {item}
               </li>

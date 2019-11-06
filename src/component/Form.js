@@ -16,6 +16,10 @@ const defaultFormat = {
   fruitValues: [],
   colorValue: null,
   customAbcdValue: 'd',
+  customAbcdValue2: 'd',
+  customAbcdValue3: 'd',
+  customAbcdValue4: 'd',
+  customAbcdValue5: 'd',
 }
 
 const Form = ({ title }) => {
@@ -209,12 +213,56 @@ const Form = ({ title }) => {
     id: 'customSelect01',
     onChange: onChangeCustomSelect,
   }
+  const customSelectrContents2 = {
+    title: 'select Custom abcd',
+    name: 'customAbcdValue2',
+    optArr: ['a', 'b', 'c', 'd'],
+    value: selectValues.customAbcdValue2,
+    id: 'customSelect02',
+    onChange: onChangeCustomSelect,
+  }
+  const customSelectrContents3 = {
+    title: 'select Custom abcd',
+    name: 'customAbcdValue3',
+    optArr: ['a', 'b', 'c', 'd'],
+    value: selectValues.customAbcdValue3,
+    id: 'customSelect03',
+    onChange: onChangeCustomSelect,
+  }
+  const customSelectrContents4 = {
+    title: 'select Custom abcd',
+    name: 'customAbcdValue4',
+    optArr: ['a', 'b', 'c', 'd'],
+    value: selectValues.customAbcdValue4,
+    id: 'customSelect04',
+    onChange: onChangeCustomSelect,
+  }
+  const customSelectrContents5 = {
+    title: 'select Custom abcd',
+    name: 'customAbcdValue5',
+    optArr: ['a', 'b', 'c', 'd'],
+    value: selectValues.customAbcdValue5,
+    id: 'customSelect05',
+    onChange: onChangeCustomSelect,
+  }
 
   return (
     <form onSubmit={onSubmitHandler}>
       <legend>{title}</legend>
+      {/*  
+        무한 루프 
+      */}
       <strong>custom</strong>
       <CustomSelect contents={customSelectrContents} />
+      {/* <br/> */}
+      <CustomSelect contents={customSelectrContents2} />
+      <br/>
+      <CustomSelect contents={customSelectrContents3} />
+      <br/>
+      <CustomSelect contents={customSelectrContents4} />
+      <br/>
+      <CustomSelect contents={customSelectrContents5} />
+      <br/>
       <strong>group1</strong>
       <Select contents={selectrContents} />
       <InputTxt contents={inputNameContents} />
